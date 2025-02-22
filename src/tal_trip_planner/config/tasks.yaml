@@ -51,3 +51,11 @@ policy_enforcement_task:
   expected_output: >
      enforce the company's policy on route identification, cost calculation, and comfort assessmenta and output if the policy is violated.
   agent: policy_enforcer
+
+
+railway_booking_task:
+  description: >
+    Book the train tickets for the trip
+  expected_output: >
+    Provide the results in a table format
+  agent: railways_agent

@@ -8,7 +8,7 @@ from crewai_tools import (
 )
 from crewai.knowledge.source.text_file_knowledge_source import TextFileKnowledgeSource
 from crewai.knowledge.source.csv_knowledge_source import CSVKnowledgeSource
-
+from src.tal_trip_planner.tools.railways_agent import RailwaysAgent
 
 # If you want to run a snippet of code before or after the crew starts, 
 # you can use the @before_kickoff and @after_kickoff decorators
@@ -71,8 +71,14 @@ class TalTripPlanner():
 			config=self.agents_config['policy_enforcer'],
 			#tools=[self.search_tool, self.web_rag_tool],
 		)
-	
-	
+
+	@agent
+	def railways_agent(self) -> Agent:
+		return Agent(
+			config=self.agents_config['railways_agent'],
+			tools=[RailwaysAgent()],
+			verbose=True
+		)
 
 	# To learn more about structured task outputs, 
 	# task dependencies, and task callbacks, check out the documentation:
@@ -100,6 +106,13 @@ class TalTripPlanner():
 		return Task(
 			config=self.tasks_config['policy_enforcement_task'],
 		)
+	
+	@task
+	def railway_booking_task(self) -> Task:
+		return Task(
+			config=self.tasks_config['railway_booking_task'],
+			tools=[RailwaysAgent()]
+		)
 
 	@crew
 	def crew(self) -> Crew:
@@ -108,8 +121,8 @@ class TalTripPlanner():
 		# https://docs.crewai.com/concepts/knowledge#what-is-knowledge
 
 		return Crew(
-			agents=self.agents, # Automatically created by the @agent decorator
-			tasks=self.tasks, # Automatically created by the @task decorator
+			agents=[self.railways_agent()], # Automatically created by the @agent decorator
+			tasks=[self.railway_booking_task()], # Automatically created by the @task decorator
 			process=Process.sequential,
 			verbose=True,
 			# process=Process.hierarchical, # In case you wanna use that instead https://docs.crewai.com/how-to/Hierarchical/

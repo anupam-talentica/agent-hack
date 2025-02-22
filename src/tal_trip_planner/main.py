@@ -21,7 +21,17 @@ def run():
         'topic': 'AI LLMs',
         'current_year': str(datetime.now().year),
         "source": "Atru",
-        "destination": "Pune"
+        "destination": "Pune",
+        "url": "https://irctc1.p.rapidapi.com/api/v2/getFare",
+        "headers": {
+            "x-rapidapi-host": "irctc1.p.rapidapi.com",
+            "x-rapidapi-key": "api_key"
+        },
+        "params": {
+            "trainNo": "19038",
+            "fromStationCode": "ST",
+            "toStationCode": "BVI"
+        }
     }
     
     try:
@@ -35,9 +45,20 @@ def train():
     Train the crew for a given number of iterations.
     """
     inputs = {
-        "topic": "AI LLMs",
+        'topic': 'AI LLMs',
+        'current_year': str(datetime.now().year),
         "source": "Atru",
-        "destination": "Pune"
+        "destination": "Pune",
+        "url": "https://irctc1.p.rapidapi.com/api/v2/getFare",
+        "headers": {
+            "x-rapidapi-host": "irctc1.p.rapidapi.com",
+            "x-rapidapi-key": "api_key"
+        },
+        "params": {
+            "trainNo": "19038",
+            "fromStationCode": "ST",
+            "toStationCode": "BVI"
+        }
     }
     try:
         TalTripPlanner().crew().train(n_iterations=1, filename=sys.argv[2], inputs=inputs)
