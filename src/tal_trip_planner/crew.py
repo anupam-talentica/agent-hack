@@ -81,6 +81,7 @@ class TalTripPlanner():
 	def route_identification_task(self) -> Task:
 		return Task(
 			config=self.tasks_config['route_identification_task'],
+			output_format='json',
 		)
 	
 	@task
@@ -111,6 +112,8 @@ class TalTripPlanner():
 			agents=self.agents, # Automatically created by the @agent decorator
 			tasks=self.tasks, # Automatically created by the @task decorator
 			process=Process.sequential,
+			memory=False,
+    		respect_context_window=True,
 			verbose=True,
 			# process=Process.hierarchical, # In case you wanna use that instead https://docs.crewai.com/how-to/Hierarchical/
 		)

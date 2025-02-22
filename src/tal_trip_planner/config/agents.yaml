@@ -1,6 +1,6 @@
 route_identifier:
   role: >
-    {topic} Route identifier
+    Route identifier
   goal: >
     Provide all the routes from {source} to {destination} trips
   backstory: >
