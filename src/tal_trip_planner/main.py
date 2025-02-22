@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 import sys
 import warnings
+import csv
+import json
 
 from datetime import datetime
 
@@ -17,15 +19,27 @@ def run():
     """
     Run the crew.
     """
-    inputs = {
-        'topic': 'AI LLMs',
-        'current_year': str(datetime.now().year),
-        "source": "Atru",
-        "destination": "Pune"
-    }
+    # inputs = {
+    #     'topic': 'AI LLMs',
+    #     'current_year': str(datetime.now().year),
+    #     "source": "Atru",
+    #     "destination": "Pune"
+    # }
+
+    inputs = []
+    outputs = []
+
+    with open('./knowledge/users.csv', encoding='utf-8') as csvf:
+        csvReader = csv.DictReader(csvf)
+        inputs = [row for row in csvReader]
     
     try:
-        TalTripPlanner().crew().kickoff(inputs=inputs)
+        crew_outputs = TalTripPlanner().crew().kickoff_for_each(inputs=inputs)
+
+        for output in crew_outputs:
+            outputs.append(output.json_dict)
+
+        return outputs
     except Exception as e:
         raise Exception(f"An error occurred while running the crew: {e}")
 
