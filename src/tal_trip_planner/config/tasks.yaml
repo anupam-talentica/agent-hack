@@ -1,0 +1,32 @@
+route_identification_task:
+  description: >
+    Identify all possible routes across multiple transport modes, including their respective timings.
+
+    Step 1: Identify the Distance and Mode of Transport
+    First, determine the distance between {source} and {destination}, and apply the following travel logic:
+
+    If the distance is less than 200 km, recommend bus or train.
+    If the distance is between 200 km and 500 km, recommend train or flight.
+    If the distance is more than 500 km, recommend flight.
+    
+    Step 2: Find the Nearest Major Airports for Flight Options
+    If flight travel is required, identify all possible major airports within 500 km of {source}. These could include airports in nearby cities, rather than just the closest one.
+
+    If multiple airport options exist, consider the shortest total travel time when recommending flights.
+    Ensure that layovers do not exceed 4 hours to minimize waiting time.
+    If there is no direct flight, suggest connecting flights with the shortest layovers.
+    Step 3: Compile All Possible Routes
+    Your response must include all feasible routes using buses, trains, and flights, providing:
+
+    Which bus service is available?
+    Which train is available and at what time?
+    Which flight is available and at what time?
+    Layover durations at each stop?
+  expected_output: >
+    Provide the results in a table as follows:
+
+    From	Mode	Stop1	Operator/Train#	Dep - Arr	Duration	Stop2	Operator/Flight#	Dep - Arr	Duration
+    {source}	Bus	CityX	XYZ Bus Service	06:00 - 08:00	2h	{destination}	IndiGo 6E-1234	12:30 - 14:30	2h 0m
+    {source}	Train	CityY	Express 4567	10:00 - 14:00	4h	{destination}	Vistara UK-4567	17:00 - 19:30	2h 30m
+    {source}	Bus	CityZ	State Transport Bus	09:00 - 12:30	3h 30m	{destination}	Air India AI-789	15:30 - 18:00	2h 30m
+  agent: route_identifier
