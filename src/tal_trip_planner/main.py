@@ -21,7 +21,8 @@ def run():
         'topic': 'AI LLMs',
         'current_year': str(datetime.now().year),
         "source": "Atru",
-        "destination": "Pune"
+        "destination": "Pune",
+        "travel_date": "2025-02-28"
     }
     
     try:
@@ -37,7 +38,8 @@ def train():
     inputs = {
         "topic": "AI LLMs",
         "source": "Atru",
-        "destination": "Pune"
+        "destination": "Pune",
+        "travel_date": "2025-02-28"
     }
     try:
         TalTripPlanner().crew().train(n_iterations=1, filename=sys.argv[2], inputs=inputs)
