@@ -1,4 +1,4 @@
-from crewai import Agent, Crew, Process, Task
+from crewai import Agent, Crew, Process, Task, LLM
 from crewai.project import CrewBase, agent, crew, task
 from crewai_tools import (
     DirectoryReadTool,
@@ -55,6 +55,10 @@ class TalTripPlanner():
 		return Agent(
 			config=self.agents_config['cost_calculator'],
 			#tools=[self.search_tool, self.web_rag_tool],
+			llm=LLM(
+				model="ollama/llama3.2:1b",
+				base_url="http://localhost:11434"
+			)
 		)
 	
 
