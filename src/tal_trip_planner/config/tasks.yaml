@@ -30,3 +30,24 @@ route_identification_task:
     {source}	Train	CityY	Express 4567	10:00 - 14:00	4h	{destination}	Vistara UK-4567	17:00 - 19:30	2h 30m
     {source}	Bus	CityZ	State Transport Bus	09:00 - 12:30	3h 30m	{destination}	Air India AI-789	15:30 - 18:00	2h 30m
   agent: route_identifier
+
+cost_calculation_task:
+  description: >
+    calculate cost of travel between {source} and {destination} in rupees.
+  expected_output: >
+    Provide the results in a table format
+  agent: cost_calculator
+
+comfort_assessment_task:
+  description: >
+    assess the comfort level of travel between {source} and {destination}.
+  expected_output: >
+    Provide the results 5-star rating system
+  agent: comfort_assessor
+
+policy_enforcement_task:
+  description: >
+    enforce the company's policy on route identification, cost calculation, and comfort assessment.
+  expected_output: >
+     enforce the company's policy on route identification, cost calculation, and comfort assessmenta and output if the policy is violated.
+  agent: policy_enforcer

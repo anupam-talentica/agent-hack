@@ -6,6 +6,9 @@ from crewai_tools import (
     SerperDevTool,
     WebsiteSearchTool
 )
+from crewai.knowledge.source.text_file_knowledge_source import TextFileKnowledgeSource
+from crewai.knowledge.source.csv_knowledge_source import CSVKnowledgeSource
+
 
 # If you want to run a snippet of code before or after the crew starts, 
 # you can use the @before_kickoff and @after_kickoff decorators
@@ -21,10 +24,18 @@ class TalTripPlanner():
 	agents_config = 'config/agents.yaml'
 	tasks_config = 'config/tasks.yaml'
 
-	docs_tool = DirectoryReadTool(directory='./blog-posts')
-	file_tool = FileReadTool()
-	search_tool = SerperDevTool()
-	web_rag_tool = WebsiteSearchTool()
+	# docs_tool = DirectoryReadTool(directory='./blog-posts')
+	# file_tool = FileReadTool()
+	# search_tool = SerperDevTool()
+	# web_rag_tool = WebsiteSearchTool()
+
+	text_source = TextFileKnowledgeSource(
+    	file_paths=["policy.txt" ]
+	)
+
+	csv_source = CSVKnowledgeSource(
+   		file_paths=["users.csv"]
+	)
 
 
 	# If you would like to add tools to your agents, you can learn more about it here:
@@ -35,7 +46,30 @@ class TalTripPlanner():
 		return Agent(
 			config=self.agents_config['route_identifier'],
 			#tools=[self.search_tool, self.web_rag_tool],
-			verbose=True
+			verbose=True,
+			knowledge_sources=[self.csv_source]
+		)
+	
+	@agent
+	def cost_calculator(self) -> Agent:
+		return Agent(
+			config=self.agents_config['cost_calculator'],
+			#tools=[self.search_tool, self.web_rag_tool],
+		)
+	
+
+	@agent
+	def comfort_assessor(self) -> Agent:
+		return Agent(
+			config=self.agents_config['comfort_assessor'],
+			#tools=[self.search_tool, self.web_rag_tool],
+		)
+	
+	@agent
+	def policy_enforcer(self) -> Agent:
+		return Agent(
+			config=self.agents_config['policy_enforcer'],
+			#tools=[self.search_tool, self.web_rag_tool],
 		)
 	
 	
@@ -49,6 +83,23 @@ class TalTripPlanner():
 			config=self.tasks_config['route_identification_task'],
 		)
 	
+	@task
+	def cost_calculator_task(self) -> Task:
+		return Task(
+			config=self.tasks_config['cost_calculation_task'],
+		)
+	
+	@task
+	def comfort_assessment_task(self) -> Task:
+		return Task(
+			config=self.tasks_config['comfort_assessment_task'],
+		)
+	
+	@task
+	def policy_enforcement_task(self) -> Task:
+		return Task(
+			config=self.tasks_config['policy_enforcement_task'],
+		)
 
 	@crew
 	def crew(self) -> Crew:
