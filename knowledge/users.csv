@@ -1,2 +1,2 @@
-name,source,destination,preferred_method
-chinmay,mumbai,pune,flight
+name,source,destination,travel_date,preferred_method
+chinmay,bengaluru,pune,2025-02-28,flight

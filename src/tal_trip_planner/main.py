@@ -20,13 +20,6 @@ def run():
     Run the crew.
     """
 
-    # inputs = {
-    #     'topic': 'AI LLMs',
-    #     'current_year': str(datetime.now().year),
-    #     "source": "Atru",
-    #     "destination": "Pune"
-    # }
-
     inputs = []
     outputs = []
 
