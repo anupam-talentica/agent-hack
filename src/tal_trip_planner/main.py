@@ -2,6 +2,7 @@
 import sys
 import warnings
 import csv
+import json
 
 from datetime import datetime
 
@@ -26,6 +27,7 @@ def run():
     # }
 
     inputs = []
+    outputs = []
 
     with open('./knowledge/users.csv', encoding='utf-8') as csvf:
         csvReader = csv.DictReader(csvf)
@@ -35,8 +37,9 @@ def run():
         crew_outputs = TalTripPlanner().crew().kickoff_for_each(inputs=inputs)
 
         for output in crew_outputs:
-            json_dict_output = output.json_dict
-            print(json_dict_output)
+            outputs.append(output.json_dict)
+
+        return outputs
     except Exception as e:
         raise Exception(f"An error occurred while running the crew: {e}")
 

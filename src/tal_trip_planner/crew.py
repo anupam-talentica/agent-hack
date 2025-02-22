@@ -8,6 +8,7 @@ from crewai_tools import (
 )
 from crewai.knowledge.source.text_file_knowledge_source import TextFileKnowledgeSource
 from crewai.knowledge.source.csv_knowledge_source import CSVKnowledgeSource
+from .output_schemas.route_identifier_output import RouteIdentifierOutput
 
 
 # If you want to run a snippet of code before or after the crew starts, 
@@ -71,8 +72,7 @@ class TalTripPlanner():
 			config=self.agents_config['policy_enforcer'],
 			#tools=[self.search_tool, self.web_rag_tool],
 		)
-	
-	
+		
 
 	# To learn more about structured task outputs, 
 	# task dependencies, and task callbacks, check out the documentation:
@@ -81,26 +81,26 @@ class TalTripPlanner():
 	def route_identification_task(self) -> Task:
 		return Task(
 			config=self.tasks_config['route_identification_task'],
-			output_format='json',
+			output_json=RouteIdentifierOutput
 		)
 	
-	@task
-	def cost_calculator_task(self) -> Task:
-		return Task(
-			config=self.tasks_config['cost_calculation_task'],
-		)
+	# @task
+	# def cost_calculator_task(self) -> Task:
+	# 	return Task(
+	# 		config=self.tasks_config['cost_calculation_task'],
+	# 	)
 	
-	@task
-	def comfort_assessment_task(self) -> Task:
-		return Task(
-			config=self.tasks_config['comfort_assessment_task'],
-		)
+	# @task
+	# def comfort_assessment_task(self) -> Task:
+	# 	return Task(
+	# 		config=self.tasks_config['comfort_assessment_task'],
+	# 	)
 	
-	@task
-	def policy_enforcement_task(self) -> Task:
-		return Task(
-			config=self.tasks_config['policy_enforcement_task'],
-		)
+	# @task
+	# def policy_enforcement_task(self) -> Task:
+	# 	return Task(
+	# 		config=self.tasks_config['policy_enforcement_task'],
+	# 	)
 
 	@crew
 	def crew(self) -> Crew:
