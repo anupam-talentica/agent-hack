@@ -19,6 +19,7 @@ def run():
     """
     Run the crew.
     """
+
     # inputs = {
     #     'topic': 'AI LLMs',
     #     'current_year': str(datetime.now().year),
@@ -32,7 +33,16 @@ def run():
     with open('./knowledge/users.csv', encoding='utf-8') as csvf:
         csvReader = csv.DictReader(csvf)
         inputs = [row for row in csvReader]
-    
+
+    # inputs = {
+    #     'topic': 'AI LLMs',
+    #     'current_year': str(datetime.now().year),
+    #     "source": "Atru",
+    #     "destination": "Pune",
+    #     "travel_date": "2025-02-28"
+    # }
+
+ 
     try:
         crew_outputs = TalTripPlanner().crew().kickoff_for_each(inputs=inputs)
 
@@ -51,7 +61,8 @@ def train():
     inputs = {
         "topic": "AI LLMs",
         "source": "Atru",
-        "destination": "Pune"
+        "destination": "Pune",
+        "travel_date": "2025-02-28"
     }
     try:
         TalTripPlanner().crew().train(n_iterations=1, filename=sys.argv[2], inputs=inputs)
