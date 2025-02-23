@@ -1,4 +1,4 @@
-# TalTripPlanner Crew
+# TalTripPlanner
 
 Welcome to the TalTripPlanner, Its a multi-agent AI system. The goal is to leverage AI agents to address Travel Planning related pain.
 
