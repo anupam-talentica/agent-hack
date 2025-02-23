@@ -84,6 +84,9 @@ comfort_assessment_task:
 policy_enforcement_task:
   description: >
     enforce the company's policy on route identification, cost calculation, and comfort assessment.
+    no trip should cost over 100 rupees
+    people named chinmay cannot travel to pune
+    no one can travel from outside of India
   expected_output: >
      enforce the company's policy on route identification, cost calculation, and comfort assessmenta and output if the policy is violated.
   agent: policy_enforcer

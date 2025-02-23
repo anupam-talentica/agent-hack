@@ -1,4 +1,4 @@
-from crewai import Agent, Crew, Process, Task
+from crewai import Agent, Crew, Process, Task, LLM
 from crewai.project import CrewBase, agent, crew, task
 from crewai_tools import (
     DirectoryReadTool,
@@ -11,24 +11,15 @@ from crewai.knowledge.source.csv_knowledge_source import CSVKnowledgeSource
 from .output_schemas.route_identifier_output import RouteIdentifierOutput
 
 
-# If you want to run a snippet of code before or after the crew starts, 
-# you can use the @before_kickoff and @after_kickoff decorators
-# https://docs.crewai.com/concepts/crews#example-crew-class-with-decorators
 
 @CrewBase
 class TalTripPlanner():
 	"""TalTripPlanner crew"""
 
-	# Learn more about YAML configuration files here:
-	# Agents: https://docs.crewai.com/concepts/agents#yaml-configuration-recommended
-	# Tasks: https://docs.crewai.com/concepts/tasks#yaml-configuration-recommended
+	
 	agents_config = 'config/agents.yaml'
 	tasks_config = 'config/tasks.yaml'
 
-	# docs_tool = DirectoryReadTool(directory='./blog-posts')
-	# file_tool = FileReadTool()
-	# search_tool = SerperDevTool()
-	# web_rag_tool = WebsiteSearchTool()
 
 	text_source = TextFileKnowledgeSource(
     	file_paths=["policy.txt" ]
@@ -37,10 +28,6 @@ class TalTripPlanner():
 	csv_source = CSVKnowledgeSource(
    		file_paths=["users.csv"]
 	)
-
-
-	# If you would like to add tools to your agents, you can learn more about it here:
-	# https://docs.crewai.com/concepts/agents#agent-tools
 
 	@agent
 	def route_identifier(self) -> Agent:
@@ -55,7 +42,7 @@ class TalTripPlanner():
 	def cost_calculator(self) -> Agent:
 		return Agent(
 			config=self.agents_config['cost_calculator'],
-			#tools=[self.search_tool, self.web_rag_tool],
+			#tools=[self.search_tool, self.web_rag_tool]
 		)
 	
 
@@ -74,33 +61,26 @@ class TalTripPlanner():
 		)
 		
 
-	# To learn more about structured task outputs, 
-	# task dependencies, and task callbacks, check out the documentation:
-	# https://docs.crewai.com/concepts/tasks#overview-of-a-task
+	
 	@task
 	def route_identification_task(self) -> Task:
 		return Task(
 			config=self.tasks_config['route_identification_task'],
+		)
+	
+	@task
+	def cost_calculator_task(self) -> Task:
+		return Task(
+			config=self.tasks_config['cost_calculation_task'],
+		)
+	
+	@task
+	def comfort_assessment_task(self) -> Task:
+		return Task(
+			config=self.tasks_config['comfort_assessment_task'],
 			output_json=RouteIdentifierOutput
 		)
 	
-	# @task
-	# def cost_calculator_task(self) -> Task:
-	# 	return Task(
-	# 		config=self.tasks_config['cost_calculation_task'],
-	# 	)
-	
-	# @task
-	# def comfort_assessment_task(self) -> Task:
-	# 	return Task(
-	# 		config=self.tasks_config['comfort_assessment_task'],
-	# 	)
-	
-	# @task
-	# def policy_enforcement_task(self) -> Task:
-	# 	return Task(
-	# 		config=self.tasks_config['policy_enforcement_task'],
-	# 	)
 
 	@crew
 	def crew(self) -> Crew:
