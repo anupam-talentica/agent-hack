@@ -35,13 +35,21 @@ class TalTripPlanner():
 			config=self.agents_config['route_identifier'],
 			#tools=[self.search_tool, self.web_rag_tool],
 			verbose=True,
-			knowledge_sources=[self.csv_source]
+			knowledge_sources=[self.csv_source],
+			llm=LLM(
+				model="ollama/llama3.2:1b",
+				base_url="http://localhost:11434"
+			)
 		)
 	
 	@agent
 	def cost_calculator(self) -> Agent:
 		return Agent(
 			config=self.agents_config['cost_calculator'],
+			llm=LLM(
+				model="ollama/llama3.2:1b",
+				base_url="http://localhost:11434"
+			)
 			#tools=[self.search_tool, self.web_rag_tool]
 		)
 	
@@ -50,6 +58,10 @@ class TalTripPlanner():
 	def comfort_assessor(self) -> Agent:
 		return Agent(
 			config=self.agents_config['comfort_assessor'],
+			llm=LLM(
+				model="ollama/llama3.2:1b",
+				base_url="http://localhost:11434"
+			)
 			#tools=[self.search_tool, self.web_rag_tool],
 		)
 	
@@ -58,6 +70,10 @@ class TalTripPlanner():
 		return Agent(
 			config=self.agents_config['policy_enforcer'],
 			#tools=[self.search_tool, self.web_rag_tool],
+			llm=LLM(
+				model="ollama/llama3.2:1b",
+				base_url="http://localhost:11434"
+			)
 		)
 		
 

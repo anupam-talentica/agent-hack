@@ -117,7 +117,7 @@ def main():
     ```
     name, source, destination, travel_date (YYYY-MM-DD), preferred_method
     ```
-    Example: Ramesh, Bangalore, Puner, 2025-02-28, flight
+    Example: Ramesh, Bangalore, Pune, 2025-02-28, flight
     
     Note: travel_date and preferred_method are optional
     """)
