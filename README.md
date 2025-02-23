@@ -27,6 +27,16 @@ crewai install
 - Modify `src/tal_trip_planner/crew.py` to add your own logic, tools and specific args
 - Modify `src/tal_trip_planner/main.py` to add custom inputs for your agents and tasks
 
+## Running the Open Source LLM Model Locally
+
+Download the `Ollama` tool in your system to run large language models (LLMs) locally
+
+Execute below command in your terminal to run `llama3.2:1b` Open Source LLM Model Locally
+
+```bash
+$ ollama run llama3.2:1b
+```
+
 ## Running the Project
 
 To kickstart your crew of AI agents and begin task execution, run this from the root folder of your project:
