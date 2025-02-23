@@ -1,6 +1,32 @@
 # TalTripPlanner Crew
 
-Welcome to the TalTripPlanner Crew project, powered by [crewAI](https://crewai.com). This template is designed to help you set up a multi-agent AI system with ease, leveraging the powerful and flexible framework provided by crewAI. Our goal is to enable your agents to collaborate effectively on complex tasks, maximizing their collective intelligence and capabilities.
+Welcome to the TalTripPlanner, Its a multi-agent AI system. The goal is to leverage AI agents to address Travel Planning related pain.
+
+## Problems/Challenges
+- Slow and Manual Process
+  - Today, the admin team takes up to 2 weeks to arrange travel for 100 employees, leading to inefficiencies and delays.
+- Lack of a Unified View
+  - No single platform provides a comprehensive view of travel options from a small village (source) to Pune (destination). Employees and admins must check multiple sources manually.
+- Budget and Policy Compliance Adherence
+  - The travel options adhere to company budgets and policies, leading to cost overruns or non-compliant bookings.
+- Respect User Preferences
+  - Employees have individual travel preferences (e.g., comfort, timing, transport mode), but current solutions often force generic recommendations, leading to dissatisfaction.
+- Excessive Back-and-Forth Communication
+  - Employees and the travel desk engage in repeated discussions due to missing information, leading to delays and frustration.
+- Prone to Errors
+  - Manual coordination increases the risk of incorrect bookings, miscommunication, or missing details, requiring last-minute corrections and added costs.
+
+## Ideal Solution
+- As an admin user I will provide a list of users with source and destination.
+- The solution shall generate option which I shall approve.
+- The Employee shall pick one option.
+- System shall make the bookings. 
+
+## WorkFlow
+
+![Alt text](https://github.com/anupam-talentica/agent-hack/blob/main/workflow.png?raw=true)
+
+
 
 ## Installation
 
