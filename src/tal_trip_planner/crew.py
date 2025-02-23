@@ -85,20 +85,20 @@ class TalTripPlanner():
 	def route_identification_task(self) -> Task:
 		return Task(
 			config=self.tasks_config['route_identification_task'],
-			output_json=RouteIdentifierOutput
 		)
 	
-	# @task
-	# def cost_calculator_task(self) -> Task:
-	# 	return Task(
-	# 		config=self.tasks_config['cost_calculation_task'],
-	# 	)
+	@task
+	def cost_calculator_task(self) -> Task:
+		return Task(
+			config=self.tasks_config['cost_calculation_task'],
+		)
 	
-	# @task
-	# def comfort_assessment_task(self) -> Task:
-	# 	return Task(
-	# 		config=self.tasks_config['comfort_assessment_task'],
-	# 	)
+	@task
+	def comfort_assessment_task(self) -> Task:
+		return Task(
+			config=self.tasks_config['comfort_assessment_task'],
+			output_json=RouteIdentifierOutput
+		)
 	
 	# @task
 	# def policy_enforcement_task(self) -> Task:
