@@ -10,6 +10,7 @@ class RouteIdentifierOutputStops(BaseModel):
   arrival: str
   duration: str
   flight_number: str
+  comfort: str
 
 class RouteIdentifierOutput(BaseModel):
   stops: List[RouteIdentifierOutputStops]

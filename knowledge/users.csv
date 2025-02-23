@@ -1,2 +1,3 @@
-name,source,destination,preferred_method
-chinmay,mumbai,pune,flight
+name,source,destination,preferred_method,travel_date
+chinmay,mumbai,pune,flight,25/02/2025
+ajay,atru,pune,25/02/2025
