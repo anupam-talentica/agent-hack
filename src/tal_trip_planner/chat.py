@@ -112,54 +112,71 @@ def main():
     # st.title("✨ Travel Planner ✈️")
 
     # Input field for user message
-    user_message = st.text_input("Enter your question:")
+    st.markdown("""
+    Enter your travel details in the following format:
+    ```
+    source, destination, travel_date (YYYY-MM-DD), preferred_method
+    ```
+    Example: Bangalore, Puner, 2025-02-28, flight
+    
+    Note: travel_date and preferred_method are optional
+    """)
+    user_message = st.text_input("Enter your travel details:")
 
     if st.button("Submit"):
         if user_message.strip():
-            with st.spinner("Sending request..."):
-                #response = send_request(user_message)
-                raw_response = run()
+            try:
+                # Parse the comma-separated input
+                params = [param.strip() for param in user_message.split(',')]
+                
+                # Validate input
+                if len(params) < 2:
+                    st.error("Please enter at least source and destination separated by comma.")
+                    return
+                
+                source = params[0]
+                destination = params[1]
+                travel_date = params[2] if len(params) > 2 else None
+                preferred_method = params[3] if len(params) > 3 else 'flight'
 
-                # response_dict = json.loads(raw_response) if isinstance(raw_response, str) else raw_response
-                 
-                # # Continue with the processing
-                # response = jsonify(response_dict)
+                with st.spinner("Sending request..."):
+                    raw_response = run(source, destination, travel_date, preferred_method)
 
-                st.success("Response received!")
-                # st.markdown(f"{raw_response}")
-                data = f"{raw_response}"
-                flattened_data = []
-                for entry in raw_response:
-                    for traveler in entry["travelers"]:
-                        for route in traveler["routes"]:
-                            flattened_data.append(
-                                {
-                                    "Traveler": traveler["name"],
-                                    "Route No": route["route_no"],
-                                    "Travel Date": route["travel_date"],
-                                    "Origin": route["origin"],
-                                    "Transport Modes": route["transport_modes"],
-                                    "Stops": route["stops"],
-                                    "Operators": route["operators"],
-                                    "Departure - Arrival": route["departure_arrival"],
-                                    "Total Time": route["total_time"],
-                                    "Total Cost": route["total_cost"],
-                                }
-                            )
+                    st.success("Response received!")
+                    data = f"{raw_response}"
+                    flattened_data = []
+                    for entry in raw_response:
+                        for traveler in entry["travelers"]:
+                            for route in traveler["routes"]:
+                                flattened_data.append(
+                                    {
+                                        "Traveler": traveler["name"],
+                                        "Route No": route["route_no"],
+                                        "Travel Date": route["travel_date"],
+                                        "Origin": route["origin"],
+                                        "Transport Modes": route["transport_modes"],
+                                        "Stops": route["stops"],
+                                        "Operators": route["operators"],
+                                        "Departure - Arrival": route["departure_arrival"],
+                                        "Total Time": route["total_time"],
+                                        "Total Cost": route["total_cost"],
+                                    }
+                                )
 
-            # Convert list of dictionaries to DataFrame
-            df = pd.DataFrame(flattened_data)
+                # Convert list of dictionaries to DataFrame
+                df = pd.DataFrame(flattened_data)
 
-            # Streamlit app
-            # st.title("Travel Routes Overview")
-            st.markdown('<h1 class="title">Travel Routes Overview</h1>', unsafe_allow_html=True)
+                # Streamlit app
+                st.markdown('<h1 class="title">Travel Routes Overview</h1>', unsafe_allow_html=True)
 
-            st.dataframe(df.style.set_properties(**{
-            "background-color": "white",
-            "border-radius": "5px",
-            "color": "#212529",
-            "border": "1px solid #ddd"
-        }))
+                st.dataframe(df.style.set_properties(**{
+                    "background-color": "white",
+                    "border-radius": "5px",
+                    "color": "#212529",
+                    "border": "1px solid #ddd"
+                }))
+            except Exception as e:
+                st.error(f"An error occurred: {str(e)}")
         else:
             st.warning("Please enter a message before submitting.")
 
