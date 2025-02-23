@@ -18,3 +18,4 @@ class Traveler(BaseModel):
 
 class RouteIdentifierOutput(BaseModel):
     travelers: List[Traveler]
+    recommendation: Optional[str] = None

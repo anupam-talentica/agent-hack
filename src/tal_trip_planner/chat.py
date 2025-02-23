@@ -128,6 +128,7 @@ def main():
             try:
                 # Parse the comma-separated input
                 params = [param.strip() for param in user_message.split(',')]
+
                 
                 # Validate input
                 if len(params) < 2:
@@ -147,6 +148,7 @@ def main():
                     data = f"{raw_response}"
                     flattened_data = []
                     for entry in raw_response:
+                        recommendation = entry.get("recommendation")
                         for traveler in entry["travelers"]:
                             for route in traveler["routes"]:
                                 flattened_data.append(
@@ -176,6 +178,8 @@ def main():
                     "color": "#212529",
                     "border": "1px solid #ddd"
                 }))
+                st.markdown('<h3 class="title">Recommendation</h3>', unsafe_allow_html=True)
+                st.markdown(recommendation)
             except Exception as e:
                 st.error(f"An error occurred: {str(e)}")
         else:
