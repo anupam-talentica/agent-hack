@@ -55,11 +55,7 @@ class TalTripPlanner():
 	def cost_calculator(self) -> Agent:
 		return Agent(
 			config=self.agents_config['cost_calculator'],
-			#tools=[self.search_tool, self.web_rag_tool],
-			llm=LLM(
-				model="ollama/llama3.2:1b",
-				base_url="http://localhost:11434"
-			)
+			#tools=[self.search_tool, self.web_rag_tool]
 		)
 	
 
