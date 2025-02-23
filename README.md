@@ -10,9 +10,9 @@ Welcome to the TalTripPlanner, Its a multi-agent AI system. The goal is to lever
 - Budget and Policy Compliance Adherence
   - The travel options adhere to company budgets and policies, leading to cost overruns or non-compliant bookings.
 - Respect User Preferences
-  - Employees have individual travel preferences (e.g., comfort, timing, transport mode), but current solutions often force generic recommendations, leading to dissatisfaction.
+  - Employees have individual travel preferences (e.g., comfort, timing, transport mode).
 - Excessive Back-and-Forth Communication
-  - Employees and the travel desk engage in repeated discussions due to missing information, leading to delays and frustration.
+  - Employees and the travel desk engage in repeated discussions due to missing information.
 - Prone to Errors
   - Manual coordination increases the risk of incorrect bookings, miscommunication, or missing details, requiring last-minute corrections and added costs.
 
