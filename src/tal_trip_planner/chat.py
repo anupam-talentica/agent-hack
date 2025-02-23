@@ -115,9 +115,9 @@ def main():
     st.markdown("""
     Enter your travel details in the following format:
     ```
-    source, destination, travel_date (YYYY-MM-DD), preferred_method
+    name, source, destination, travel_date (YYYY-MM-DD), preferred_method
     ```
-    Example: Bangalore, Puner, 2025-02-28, flight
+    Example: Ramesh, Bangalore, Puner, 2025-02-28, flight
     
     Note: travel_date and preferred_method are optional
     """)
@@ -134,13 +134,14 @@ def main():
                     st.error("Please enter at least source and destination separated by comma.")
                     return
                 
-                source = params[0]
-                destination = params[1]
-                travel_date = params[2] if len(params) > 2 else None
-                preferred_method = params[3] if len(params) > 3 else 'flight'
+                name = params[0]
+                source = params[1]
+                destination = params[2]
+                travel_date = params[3] if len(params) > 2 else None
+                preferred_method = params[4] if len(params) > 3 else 'flight'
 
                 with st.spinner("Sending request..."):
-                    raw_response = run(source, destination, travel_date, preferred_method)
+                    raw_response = run(name,source, destination, travel_date, preferred_method)
 
                     st.success("Response received!")
                     data = f"{raw_response}"
@@ -150,7 +151,7 @@ def main():
                             for route in traveler["routes"]:
                                 flattened_data.append(
                                     {
-                                        "Traveler": traveler["name"],
+                                        "Traveler": name,
                                         "Route No": route["route_no"],
                                         "Travel Date": route["travel_date"],
                                         "Origin": route["origin"],

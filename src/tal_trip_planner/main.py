@@ -15,7 +15,7 @@ warnings.filterwarnings("ignore", category=SyntaxWarning, module="pysbd")
 # Replace with inputs you want to test with, it will automatically
 # interpolate any tasks and agents information
 
-def run(source, destination, travel_date=None, preferred_method='flight'):
+def run(name,source, destination, travel_date=None, preferred_method='flight'):
     """
     Run the crew.
     
@@ -31,18 +31,19 @@ def run(source, destination, travel_date=None, preferred_method='flight'):
     inputs = []
     outputs = []
 
-    with open('./knowledge/users.csv', encoding='utf-8') as csvf:
-        csvReader = csv.DictReader(csvf)
-        inputs = [row for row in csvReader]
+    # with open('./knowledge/users.csv', encoding='utf-8') as csvf:
+    #     csvReader = csv.DictReader(csvf)
+    #     inputs = [row for row in csvReader]
         
     # Add travel parameters to each input
-    for input_dict in inputs:
-        input_dict.update({
-            'source': source,
-            'destination': destination,
-            'travel_date': travel_date,
-            'preferred_method': preferred_method
-        })
+    #for input_dict in inputs:
+    inputs.append({
+        'name': name,
+        'source': source,
+        'destination': destination,
+        'travel_date': travel_date,
+        'preferred_method': preferred_method
+    })
 
     try:
         crew_outputs = TalTripPlanner().crew().kickoff_for_each(inputs=inputs)
